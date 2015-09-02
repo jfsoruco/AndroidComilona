@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ComilonaProject</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_employees_list">Lista de Empleados</string>
+</resources>

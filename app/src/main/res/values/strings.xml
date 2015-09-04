@@ -4,4 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_employees_list">Lista de Empleados</string>
+    <string name="w_o_menus_button">Llena las opciones de Comida</string>
+    <string name="title_activity_weekly_order">WeeklyOrderActivity</string>
+    <string name="llenarComida">Llenar Comida</string>
 </resources>

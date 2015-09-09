@@ -11,6 +11,34 @@
         android:id="@+id/w_o_menus_button"
         android:text="@string/w_o_menus_button"
         android:onClick="goToWOMenus"
+        style="@style/CustomButtonStyle"
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/w_o_resignResponsible_button"
+        android:text="@string/w_o_resignResponsible_button"
+        android:onClick="goToWOMenus"
+        style="@style/CustomButtonStyle"
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/w_o_completePoll_button"
+        android:text="@string/w_o_completePoll_button"
+        android:onClick="goToWOMenus"
+        style="@style/CustomButtonStyle"
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/w_o_closeOrder_button"
+        android:text="@string/w_o_closeOrder_button"
+        android:onClick="goToWOMenus"
+        style="@style/CustomButtonStyle"
         />
 
     <ListView

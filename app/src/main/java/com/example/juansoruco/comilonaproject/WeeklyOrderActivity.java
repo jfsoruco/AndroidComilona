@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.juansoruco.comilonaproject.weeklyOrder.WeeklyOrder;
+import com.example.juansoruco.comilonaproject.weeklyOrder.WeeklyOrderLogic;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class WeeklyOrderActivity extends ActionBarActivity {
+
+    String[] menuOptionsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +35,78 @@ public class WeeklyOrderActivity extends ActionBarActivity {
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
         // TODO recuperar el registro del weekly order y mostrar formulario para llenar/editar menu
-        WeeklyOrder weeklyOrder = new WeeklyOrder(weekly_order_id, new Date(), 1, defaultMenu, defaultMenu, defaultMenu);
-        weeklyOrder.setGroupFullname("Grupo Independiente de Comilona");
-        weeklyOrder.setResponsibleFullname("Este eres tu");
-
+        final WeeklyOrder weeklyOrder = new WeeklyOrder(weekly_order_id, new Date(), 1, "Grupo Independiente de Comilona", "Este eres tu", WeeklyOrderLogic.cActive);
+        weeklyOrder.setMenu1("Salteñas");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>> " + weeklyOrder.toString());
         TextView dateView = (TextView) findViewById(R.id.w_o_date);
         TextView groupView = (TextView) findViewById(R.id.w_o_group);
         TextView responsibleView = (TextView) findViewById(R.id.w_o_responsible);
 
-        EditText menu1View = (EditText) findViewById(R.id.w_o_menu1);
-        EditText menu2View = (EditText) findViewById(R.id.w_o_menu2);
-        EditText menu3View = (EditText) findViewById(R.id.w_o_menu3);
+        final EditText menu1View = (EditText) findViewById(R.id.w_o_menu1);
+        final EditText menu2View = (EditText) findViewById(R.id.w_o_menu2);
+        final EditText menu3View = (EditText) findViewById(R.id.w_o_menu3);
+        final EditText menu4View = (EditText) findViewById(R.id.w_o_menu4);
 
         dateView.setText(df.format(weeklyOrder.getDate()));
         groupView.setText(weeklyOrder.getGroupFullname());
         responsibleView.setText(weeklyOrder.getResponsibleFullname());
 
+        menu1View.setText(weeklyOrder.getMenu1().equals("") ? defaultMenu : weeklyOrder.getMenu1());
+        menu2View.setText(weeklyOrder.getMenu2() != null && weeklyOrder.getMenu2().equals("") ? defaultMenu : weeklyOrder.getMenu2());
+        menu3View.setText(weeklyOrder.getMenu3() != null && weeklyOrder.getMenu3().equals("") ? defaultMenu : weeklyOrder.getMenu3());
+        menu4View.setText(weeklyOrder.getMenu4() != null && weeklyOrder.getMenu4().equals("") ? defaultMenu : weeklyOrder.getMenu4());
+
         // TODO botones de guardado y de completado
+        final Button w_o_save_button = (Button) findViewById(R.id.w_o_save_button);
+        final Button w_o_complete_button = (Button) findViewById(R.id.w_o_complete_button);
+
+        w_o_save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weeklyOrder.setMenu1(menu1View.getText().toString());
+                weeklyOrder.setMenu2(menu2View.getText().toString());
+                weeklyOrder.setMenu3(menu3View.getText().toString());
+                weeklyOrder.setMenu4(menu4View.getText().toString());
+
+                System.out.println(">><save>>>> " + weeklyOrder.toString());
+
+                WeeklyOrderLogic.saveOrder(weeklyOrder);
+
+                Log.d("boton save", "boton presionado");
+            }
+        });
+
+        w_o_complete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weeklyOrder.setMenu1(menu1View.getText().toString());
+                weeklyOrder.setMenu2(menu2View.getText().toString());
+                weeklyOrder.setMenu3(menu3View.getText().toString());
+                weeklyOrder.setMenu4(menu4View.getText().toString());
+
+                System.out.println(">><complete>>>> " + weeklyOrder.toString());
+
+                WeeklyOrderLogic.completeMenu(weeklyOrder);
+
+                Log.d("boton complete", "boton presionado");
+            }
+        });
+    }
+
+    public void fillMenuOptions() {
+        /*
+        employeesList = getResources().getStringArray(R.array.employee_names);
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+        for (int i = 0; i < employeesList.length; i++) {
+            Employee employee = new Employee(i, employeesList[i], "A");
+            employees.add(employee);
+        }
+        employeeListAdapter = new EmployeeListAdapter(this, employees);
+
+        listView = (ListView)findViewById(R.id.employees_list);
+        listView.setAdapter(employeeListAdapter);
+         */
+        menuOptionsList = getResources().getStringArray(R.array.menu_options);
 
     }
 
@@ -72,4 +131,5 @@ public class WeeklyOrderActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

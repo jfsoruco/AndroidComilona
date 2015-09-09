@@ -153,4 +153,25 @@ public class WeeklyOrder {
     public void setMenuCount4(int menuCount4) {
         this.menuCount4 = menuCount4;
     }
+
+    @Override
+    public String toString() {
+        return "WeeklyOrder{" +
+                "_id=" + _id +
+                ", date=" + date +
+                ", groupMemberId=" + groupMemberId +
+                ", groupFullname='" + groupFullname + '\'' +
+                ", responsibleFullname='" + responsibleFullname + '\'' +
+                ", status='" + status + '\'' +
+                ", menu1='" + menu1 + '\'' +
+                ", menu2='" + menu2 + '\'' +
+                ", menu3='" + menu3 + '\'' +
+                ", menu4='" + menu4 + '\'' +
+                ", menuSelected='" + menuSelected + '\'' +
+                ", menuCount1=" + menuCount1 +
+                ", menuCount2=" + menuCount2 +
+                ", menuCount3=" + menuCount3 +
+                ", menuCount4=" + menuCount4 +
+                '}';
+    }
 }

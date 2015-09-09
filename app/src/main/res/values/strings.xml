@@ -7,4 +7,16 @@
     <string name="w_o_menus_button">Llena las opciones de Comida</string>
     <string name="title_activity_weekly_order">WeeklyOrderActivity</string>
     <string name="llenarComida">Llenar Comida</string>
+    <string name="w_o_menu_group_label">Grupo: </string>
+    <string name="w_o_menu_responsible_label">Responsable: </string>
+    <string name="w_o_menu_menu1_label">1: </string>
+    <string name="w_o_menu_menu2_label">2: </string>
+    <string name="w_o_menu_menu3_label">3: </string>
+    <string name="w_o_menu_menu4_label">4:</string>
+    <string name="w_o_save_button">Guardar Cambios</string>
+    <string name="w_o_complete_button">Completar Menu</string>
+    <string name="w_o_menu_menus_label">Opciones del menu</string>
+    <string name="w_o_completePoll_button">Completar la Encuesta</string>
+    <string name="w_o_closeOrder_button">Cerrar la Orden</string>
+    <string name="w_o_resignResponsible_button">Cambiar de Responsable</string>
 </resources>

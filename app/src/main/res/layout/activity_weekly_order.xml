@@ -1,0 +1,149 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.juansoruco.comilonaproject.WeeklyOrderActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/w_o_id"
+            style="@style/LargeBlueFont"/>
+
+        <TextView android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/w_o_date"
+            style="@style/CustomText"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/w_o_menu_group_label"
+            style="@style/LargeBlueFont"/>
+        <TextView android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/w_o_group"
+            style="@style/CustomText"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/w_o_menu_responsible_label"
+            style="@style/LargeBlueFont"/>
+        <TextView android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/w_o_responsible"
+            style="@style/CustomText"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/w_o_menu_menus_label"
+            style="@style/LargeBlueFont"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/w_o_menu_menu1_label"
+                style="@style/LargeBlueFont"/>
+            <EditText android:text="@string/llenarComida"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_menu1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/w_o_menu_menu2_label"
+                style="@style/LargeBlueFont"/>
+            <EditText android:text="@string/llenarComida"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_menu2"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/w_o_menu_menu3_label"
+                style="@style/LargeBlueFont"/>
+            <EditText android:text="@string/llenarComida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_menu3"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/w_o_menu_menu4_label"
+                style="@style/LargeBlueFont"/>
+            <EditText android:text="@string/llenarComida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_menu4"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/w_o_save_button"
+            android:text="@string/w_o_save_button"
+            android:onClick="saveMenus"
+            style="@style/CustomButtonStyle"
+            />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/w_o_complete_button"
+            android:text="@string/w_o_complete_button"
+            android:onClick="completeMenus"
+            style="@style/CustomButtonStyle"
+            />
+    </LinearLayout>
+
+</LinearLayout>

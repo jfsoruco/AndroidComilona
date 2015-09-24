@@ -19,4 +19,15 @@
     <string name="w_o_completePoll_button">Completar la Encuesta</string>
     <string name="w_o_closeOrder_button">Cerrar la Orden</string>
     <string name="w_o_resignResponsible_button">Cambiar de Responsable</string>
+
+    <string name="txt_grupo">Grupo:</string>
+    <string name="txt_responsable">Responsable:</string>
+    <string name="txt_nombre_responsable">Pedro</string>
+    <string name="btn_add_grupo">Add Grupo</string>
+    <string name="txt_fecha">Fecha:</string>
+    <string name="txt_menu_dia">MENU DEL DIA</string>
+    <string name="txt_votos">VOTOS</string>
+    <string name="txt_opcion">OPCION</string>
+    <string name="btn_votar">VOTAR</string>
+
 </resources>

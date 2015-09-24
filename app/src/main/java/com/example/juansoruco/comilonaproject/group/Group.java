@@ -40,4 +40,13 @@ public class Group {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "_id=" + _id +
+                ", fullName='" + fullName + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

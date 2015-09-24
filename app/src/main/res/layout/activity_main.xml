@@ -1,51 +1,206 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/w_o_menus_button"
-        android:text="@string/w_o_menus_button"
-        android:onClick="goToWOMenus"
-        style="@style/CustomButtonStyle"
-        />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/w_o_resignResponsible_button"
-        android:text="@string/w_o_resignResponsible_button"
-        android:onClick="goToWOMenus"
-        style="@style/CustomButtonStyle"
-        />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/w_o_completePoll_button"
-        android:text="@string/w_o_completePoll_button"
-        android:onClick="goToWOMenus"
-        style="@style/CustomButtonStyle"
-        />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/w_o_closeOrder_button"
-        android:text="@string/w_o_closeOrder_button"
-        android:onClick="goToWOMenus"
-        style="@style/CustomButtonStyle"
-        />
-
-    <ListView
-        android:id="@+id/employees_list"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/divider"
-        android:dividerHeight="1dp" />
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:padding="8dp"
+                android:id="@+id/txt_grupo"
+                android:text="@string/txt_grupo"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/cbx_grupo"
+                android:prompt="@string/txt_grupo"
+                android:spinnerMode="dropdown"
+                android:entries="@array/grupos"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="2dp"
+                android:id="@+id/btn_add_grupo"
+                android:src="@mipmap/ic_add" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_responsable"
+                android:text="@string/txt_responsable"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_nombre_responsable"
+                android:text="@string/txt_nombre_responsable"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:padding="8dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_fecha"
+                android:text="@string/txt_fecha"
+                android:layout_gravity="bottom"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_value_fecha"
+                android:text="12 de Septiembre del 2015"
+                android:layout_gravity="bottom"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_menu_dia"
+                android:text="@string/txt_menu_dia"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_votos"
+                android:text="@string/txt_votos"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/txt_opcion"
+                android:text="@string/txt_opcion"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_w_o_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_menus_button"
+                android:text="@string/w_o_menus_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_resignResponsible_button"
+                android:text="@string/w_o_resignResponsible_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_w_o_poll_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_completePoll_button"
+                android:text="@string/w_o_completePoll_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_w_o_poll_closed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_closeOrder_button"
+                android:text="@string/w_o_closeOrder_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/employees_list"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:divider="@color/divider"
+            android:dividerHeight="1dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_votar"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:text="@string/btn_votar"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

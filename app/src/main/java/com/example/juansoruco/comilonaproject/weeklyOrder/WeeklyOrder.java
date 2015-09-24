@@ -34,6 +34,24 @@ public class WeeklyOrder {
         this.setStatus(status);
     }
 
+    public WeeklyOrder(int _id, Date date, int groupMemberId, String groupFullname, String responsibleFullname, String status, String menu1, String menu2, String menu3, String menu4, String menuSelected, int menuCount1, int menuCount2, int menuCount3, int menuCount4) {
+        this._id = _id;
+        this.date = date;
+        this.groupMemberId = groupMemberId;
+        this.groupFullname = groupFullname;
+        this.responsibleFullname = responsibleFullname;
+        this.status = status;
+        this.menu1 = menu1;
+        this.menu2 = menu2;
+        this.menu3 = menu3;
+        this.menu4 = menu4;
+        this.menuSelected = menuSelected;
+        this.menuCount1 = menuCount1;
+        this.menuCount2 = menuCount2;
+        this.menuCount3 = menuCount3;
+        this.menuCount4 = menuCount4;
+    }
+
     public int get_id() {
         return _id;
     }

@@ -23,4 +23,10 @@
         <item>Lomitos</item>
         <item>Rellenos</item>
     </string-array>
+    <string-array name="grupos">
+        <item>Billing</item>
+        <item>CRM</item>
+        <item>Servicios</item>
+        <item>Cumpas</item>
+    </string-array>
 </resources>

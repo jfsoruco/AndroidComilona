@@ -10,7 +10,7 @@ public class ComilonaDbContract {
     // simular a las relaciones entre el nombre de dominio de un sitio web.
     // Una cadena conveniente para el "Content Authority" es el nombre del paquete
     // de la aplicacion, que se garantiza que sea unico en el dispositivo
-    public static final String CONTENT_AUTHORITY = "com.salamancasolutions.footballnews";
+    public static final String CONTENT_AUTHORITY = "com.example.juansoruco.comilonaproject.footballnews";
 
     // Esta es la URI Basica que identificara a nuestro Content Provider
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);

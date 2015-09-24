@@ -34,9 +34,7 @@ public class WeeklyOrderActivity extends ActionBarActivity {
         String defaultMenu = "Llenar Comilona";
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
-        // TODO recuperar el registro del weekly order y mostrar formulario para llenar/editar menu
-        final WeeklyOrder weeklyOrder = new WeeklyOrder(weekly_order_id, new Date(), 1, "Grupo Independiente de Comilona", "Este eres tu", WeeklyOrderLogic.cActive);
-        weeklyOrder.setMenu1("Salteñas");
+        final WeeklyOrder weeklyOrder = WeeklyOrderLogic.getWeeklyOrder(weekly_order_id, this);
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>> " + weeklyOrder.toString());
         TextView dateView = (TextView) findViewById(R.id.w_o_date);
         TextView groupView = (TextView) findViewById(R.id.w_o_group);
@@ -51,12 +49,11 @@ public class WeeklyOrderActivity extends ActionBarActivity {
         groupView.setText(weeklyOrder.getGroupFullname());
         responsibleView.setText(weeklyOrder.getResponsibleFullname());
 
-        menu1View.setText(weeklyOrder.getMenu1().equals("") ? defaultMenu : weeklyOrder.getMenu1());
+        menu1View.setText(weeklyOrder.getMenu1() != null && weeklyOrder.getMenu1().equals("") ? defaultMenu : weeklyOrder.getMenu1());
         menu2View.setText(weeklyOrder.getMenu2() != null && weeklyOrder.getMenu2().equals("") ? defaultMenu : weeklyOrder.getMenu2());
         menu3View.setText(weeklyOrder.getMenu3() != null && weeklyOrder.getMenu3().equals("") ? defaultMenu : weeklyOrder.getMenu3());
         menu4View.setText(weeklyOrder.getMenu4() != null && weeklyOrder.getMenu4().equals("") ? defaultMenu : weeklyOrder.getMenu4());
 
-        // TODO botones de guardado y de completado
         final Button w_o_save_button = (Button) findViewById(R.id.w_o_save_button);
         final Button w_o_complete_button = (Button) findViewById(R.id.w_o_complete_button);
 
@@ -70,7 +67,7 @@ public class WeeklyOrderActivity extends ActionBarActivity {
 
                 System.out.println(">><save>>>> " + weeklyOrder.toString());
 
-                WeeklyOrderLogic.saveOrder(weeklyOrder);
+                WeeklyOrderLogic.saveOrder(weeklyOrder, WeeklyOrderActivity.this);
 
                 Log.d("boton save", "boton presionado");
             }
@@ -86,7 +83,7 @@ public class WeeklyOrderActivity extends ActionBarActivity {
 
                 System.out.println(">><complete>>>> " + weeklyOrder.toString());
 
-                WeeklyOrderLogic.completeMenu(weeklyOrder);
+                WeeklyOrderLogic.completeMenu(weeklyOrder, WeeklyOrderActivity.this);
 
                 Log.d("boton complete", "boton presionado");
             }

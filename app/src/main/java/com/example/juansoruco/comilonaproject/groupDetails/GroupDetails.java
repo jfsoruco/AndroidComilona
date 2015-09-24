@@ -12,12 +12,12 @@ public class GroupDetails {
     private String groupFullname;
     private String employeeFullname;
     private int responsibleOrder;
-    private int currentResponsible;
+    private String currentResponsible;
 
     public GroupDetails() {
     }
 
-    public GroupDetails(int _id, int groupId, int employeeId, String groupFullname, String employeeFullname, int responsibleOrder, int currentResponsible) {
+    public GroupDetails(int _id, int groupId, int employeeId, String groupFullname, String employeeFullname, int responsibleOrder, String currentResponsible) {
         this._id = _id;
         this.groupId = groupId;
         this.employeeId = employeeId;
@@ -67,6 +67,19 @@ public class GroupDetails {
         this.employeeFullname = employeeFullname;
     }
 
+    @Override
+    public String toString() {
+        return "GroupDetails{" +
+                "_id=" + _id +
+                ", groupId=" + groupId +
+                ", employeeId=" + employeeId +
+                ", groupFullname='" + groupFullname + '\'' +
+                ", employeeFullname='" + employeeFullname + '\'' +
+                ", responsibleOrder=" + responsibleOrder +
+                ", currentResponsible='" + currentResponsible + '\'' +
+                '}';
+    }
+
     public int getResponsibleOrder() {
         return responsibleOrder;
     }
@@ -75,11 +88,11 @@ public class GroupDetails {
         this.responsibleOrder = responsibleOrder;
     }
 
-    public int getCurrentResponsible() {
+    public String getCurrentResponsible() {
         return currentResponsible;
     }
 
-    public void setCurrentResponsible(int currentResponsible) {
+    public void setCurrentResponsible(String currentResponsible) {
         this.currentResponsible = currentResponsible;
     }
 }

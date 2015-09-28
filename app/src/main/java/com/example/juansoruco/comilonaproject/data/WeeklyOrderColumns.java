@@ -129,7 +129,9 @@ public class WeeklyOrderColumns implements BaseColumns {
                 " gm ON w." + COLUMN_NAME_GROUP_MEMBER_ID + " = gm." + GroupMemberColumns._ID +
                 " WHERE w." + _ID + " > ? AND gm." + GroupMemberColumns.COLUMN_NAME_GROUP_ID +
                 " = (SELECT gm2." + GroupMemberColumns.COLUMN_NAME_GROUP_ID + " FROM " + GroupMemberColumns.TABLE_NAME +
-                " gm2 WHERE gm2." + GroupColumns._ID + " = ? )";
+                " gm2, " + TABLE_NAME + " w2 WHERE w2." + _ID + " = ? AND w2." + COLUMN_NAME_GROUP_MEMBER_ID +
+                " = gm2." + GroupMemberColumns._ID + ")";
+        System.out.println("WeeklyOrder.getList>>>" + query);
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(w_o_id), String.valueOf(w_o_id)});
         while (cursor.moveToNext()) {
             Date date;
@@ -186,9 +188,10 @@ public class WeeklyOrderColumns implements BaseColumns {
                 " gm ON w." + COLUMN_NAME_GROUP_MEMBER_ID + " = gm." + GroupMemberColumns._ID +
                 " WHERE gm." + GroupMemberColumns.COLUMN_NAME_GROUP_ID + " = " + groupId +
                 " AND w." + COLUMN_NAME_STATUS + " in (?,?,?)";
-
+        Log.d("getActiveRecord", query);
         Cursor cursor = db.rawQuery(query, new String[]{WeeklyOrderLogic.cActive, WeeklyOrderLogic.cMenuCompleted, WeeklyOrderLogic.cPollCompleted});
         while (cursor.moveToNext()) {
+            Log.d("loop", String.valueOf(cursor.getInt(0)));
             Date _date;
             try {
                 _date = df.parse(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_DATE)));

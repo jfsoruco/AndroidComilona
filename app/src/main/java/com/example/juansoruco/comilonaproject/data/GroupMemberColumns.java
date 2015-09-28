@@ -145,6 +145,23 @@ public class GroupMemberColumns implements BaseColumns {
         return listResultFinal;
     }
 
+    public ArrayList<GroupDetails> getGroupsByMember(int employeeId) throws SQLException {
+        ArrayList<GroupDetails> resultList = new ArrayList<>();
+
+        if (db == null) { abrir(); }
+        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COLUMN_NAME_EMPLOYEE_ID +"=" + employeeId, null, null, null, COLUMN_NAME_GROUP_ID);
+        while (cursor.moveToNext()) {
+            GroupColumns groupAdapter = new GroupColumns(context);
+            EmployeeColumns employeeAdapter = new EmployeeColumns(context);
+            resultList.add(new GroupDetails(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
+                    groupAdapter.getDescription(cursor.getInt(1)),
+                    employeeAdapter.getDescription(cursor.getInt(2)),
+                    cursor.getInt(3), cursor.getString(4)));
+        }
+
+        return resultList;
+    }
+
     public void showContents() throws SQLException {
         System.out.println(">>>>>>>>>>>>>>>>>>>> GroupMember.showContent ");
         GroupDetails element = null;

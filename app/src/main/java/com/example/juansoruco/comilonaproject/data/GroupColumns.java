@@ -93,6 +93,17 @@ public class GroupColumns implements BaseColumns{
         return element;
     }
 
+    public Group getRecord(String groupName) throws SQLException {
+        Group element = null;
+        if (db == null) { abrir(); }
+        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COLUMN_NAME_FULL_NAME + "='" + groupName + "'", null, null, null, null);
+        while(cursor.moveToNext()) {
+            element = new Group(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+        }
+
+        return element;
+    }
+
     // TODO quitar este metodo de trace
     public void showContent() throws SQLException {
         System.out.println(">>>>>>>>>>>>>>>>>>>> Group.showContent ");

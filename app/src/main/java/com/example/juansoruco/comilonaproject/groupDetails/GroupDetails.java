@@ -1,5 +1,6 @@
 package com.example.juansoruco.comilonaproject.groupDetails;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -65,6 +66,14 @@ public class GroupDetails {
 
     public void setEmployeeFullname(String employeeFullname) {
         this.employeeFullname = employeeFullname;
+    }
+
+    public static String listToString(ArrayList<GroupDetails> _list) {
+        StringBuilder text = new StringBuilder();
+        for (int i = 0; i < _list.size(); i++) {
+            text.append(_list.get(i)!=null?_list.get(i).toString():"");
+        }
+        return text.toString();
     }
 
     @Override

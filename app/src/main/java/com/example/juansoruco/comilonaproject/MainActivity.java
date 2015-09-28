@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +24,12 @@ import com.example.juansoruco.comilonaproject.data.GroupMemberColumns;
 import com.example.juansoruco.comilonaproject.data.WeeklyOrderColumns;
 import com.example.juansoruco.comilonaproject.employee.Employee;
 import com.example.juansoruco.comilonaproject.group.Group;
+import com.example.juansoruco.comilonaproject.groupDetails.GroupDetails;
 import com.example.juansoruco.comilonaproject.menu.MenuDia;
 import com.example.juansoruco.comilonaproject.weeklyOrder.WeeklyOrder;
 import com.example.juansoruco.comilonaproject.weeklyOrder.WeeklyOrderLogic;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +39,9 @@ public class MainActivity extends ActionBarActivity {
     private EmployeeListAdapter employeeListAdapter;
     private ListView listView;
     String[] employeesList;
+    private int userId;
     private Group groupActive;
+    private Spinner selectGroup;
     private WeeklyOrder weeklyOrderActive;
 
     private MenuListAdapter menuListAdapter;
@@ -54,26 +61,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println(">>>>>>>>>>>> OnCreate ");
         openDb();
-        System.out.println(">>>>>>>>>>>>> Tras openDB");
         showContentsDb();
-        System.out.println(">>>>>>>>>>>>> Tras showContents");
-        // TODO: Establecer el grupo activo
-        groupActive = new Group(1, "Mi Grupo de Comilona", "A");
+
+        userId = 1;
+
+        fillGroupItemsOnSpinner();
+        addListenerOnSpinnerItemSelection();
 
         refreshResults();
-
-/*        employeesList = getResources().getStringArray(R.array.employee_names);
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-        for (int i = 0; i < employeesList.length; i++) {
-            Employee employee = new Employee(i, employeesList[i], "A");
-            employees.add(employee);
-        }
-        employeeListAdapter = new EmployeeListAdapter(this, employees);
-
-        listView = (ListView)findViewById(R.id.employees_list);
-        listView.setAdapter(employeeListAdapter);*/
 
     }
 
@@ -81,6 +77,33 @@ public class MainActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
         refreshResults();
+    }
+
+    public void fillGroupItemsOnSpinner() {
+        String[] groupDescriptionList = null;
+        GroupMemberColumns groupMemberAdapter = new GroupMemberColumns(MainActivity.this);
+        try {
+            ArrayList<GroupDetails> list = groupMemberAdapter.getGroupsByMember(userId);
+            groupDescriptionList = new String[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                groupDescriptionList[i] = list.get(i).getGroupFullname();
+            }
+
+            selectGroup = (Spinner) findViewById(R.id.cbx_grupo);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, groupDescriptionList);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            selectGroup.setAdapter(dataAdapter);
+
+            GroupColumns groupAdapter = new GroupColumns(MainActivity.this);
+            groupActive = groupAdapter.getRecord(list.get(0).getGroupId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addListenerOnSpinnerItemSelection() {
+        selectGroup = (Spinner) findViewById(R.id.cbx_grupo);
+        selectGroup.setOnItemSelectedListener(new GroupSelectedListener());
     }
 
     private void refreshResults() {
@@ -92,26 +115,51 @@ public class MainActivity extends ActionBarActivity {
         fecha = (TextView)findViewById(R.id.txt_value_fecha);
         fecha.setText(WeeklyOrderColumns.df.format(weeklyOrderActive.getDate()));
 
-        scenarioIniciarMenu();
-        scenarioVotacionAbierta();
-        scenarioCerrarPedido();
+        loadMenus();
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>><" + WeeklyOrderLogic.toFriday(new Date()));
+        switch (weeklyOrderActive.getStatus()) {
+            case WeeklyOrderLogic.cActive: scenarioIniciarMenu();
+                break;
+            case WeeklyOrderLogic.cMenuCompleted: scenarioVotacionAbierta();
+                break;
+            case WeeklyOrderLogic.cPollCompleted: scenarioCerrarPedido();
+                break;
+            default: Toast.makeText(this, "El estado de la orden es incompatible: " + weeklyOrderActive.getStatus(), Toast.LENGTH_SHORT);
+                break;
+        }
+
     }
 
     private void openDb() {
-        System.out.println(">>>>>>>>>>>> Start openDb");
         ComilonaDbHelper dbHelper = new ComilonaDbHelper(getBaseContext());
-        System.out.println(">>>>>>>>>>> dbHelper " + dbHelper.toString());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        System.out.println(">>>>>>>>>>> db " + db.toString());
+        dbHelper.dropTables(db);
+        dbHelper.installTables(db);
     }
 
-    private void scenarioIniciarMenu() {
+    private void hideAll() {
         LinearLayout linearLayout = (LinearLayout)this.findViewById(R.id.menu_w_o_poll_closed);
         linearLayout.setVisibility(LinearLayout.GONE);
         linearLayout = (LinearLayout)this.findViewById(R.id.menu_w_o_poll_open);
         linearLayout.setVisibility(LinearLayout.GONE);
+        linearLayout = (LinearLayout)this.findViewById(R.id.menu_w_o_active);
+        linearLayout.setVisibility(LinearLayout.GONE);
+        linearLayout = (LinearLayout)this.findViewById(R.id.button_vote_layout);
+        linearLayout.setVisibility(LinearLayout.GONE);
+    }
+
+    private void showLayout(int _id) {
+        hideAll();
+        LinearLayout linearLayout = (LinearLayout)this.findViewById(_id);
+        linearLayout.setVisibility(LinearLayout.VISIBLE);
+        if (_id == R.id.menu_w_o_poll_open) {
+            linearLayout = (LinearLayout)this.findViewById(R.id.button_vote_layout);
+            linearLayout.setVisibility(LinearLayout.VISIBLE);
+        }
+    }
+
+    private void scenarioIniciarMenu() {
+        showLayout(R.id.menu_w_o_active);
         // Definicion del boton para llenar el menu del dia
         final Button w_o_menu_button = (Button) findViewById(R.id.w_o_menus_button);
         w_o_menu_button.setOnClickListener(new View.OnClickListener() {
@@ -135,29 +183,9 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    private void scenarioVotacionAbierta() {
-
-        final Button w_o_complete_poll_button = (Button) findViewById(R.id.w_o_completePoll_button);
-        w_o_complete_poll_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WeeklyOrderLogic.completePoll(weeklyOrderActive, MainActivity.this);
-            }
-        });
-
-        // menus
-        //menusList = getResources().getStringArray(R.array.menu_options);
+    private void loadMenus() {
         menus = WeeklyOrderLogic.getMenusList(weeklyOrderActive);
-        /*menus = new ArrayList<MenuDia>();
-        for (int i = 0; i < menusList.length; i++) {
-            //Log.i(null,menusList[i].toString());
-            MenuDia menu = new MenuDia(i, (i+1)+"."+menusList[i], 0);
-            //Log.i(null,""+menu.get_id()+" "+menu.getDescription()+" "+menu.getNro_voto());
-            //System.out.println(""+menu.get_id()+" "+menu.getDescription()+" "+menu.getNro_voto());
-            menus.add(menu);
-        }*/
 
-        //menuListAdapter = new MenuListAdapter(this, menus,0);
         if(menuListAdapter!= null){
             menuListAdapter.clear();
         }
@@ -165,7 +193,18 @@ public class MainActivity extends ActionBarActivity {
         menuListAdapter = new MenuListAdapter(this, menus);
         listView = (ListView)findViewById(R.id.employees_list);
         listView.setAdapter(menuListAdapter);
+    }
 
+    private void scenarioVotacionAbierta() {
+        showLayout(R.id.menu_w_o_poll_open);
+        final Button w_o_complete_poll_button = (Button) findViewById(R.id.w_o_completePoll_button);
+        w_o_complete_poll_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WeeklyOrderLogic.completePoll(weeklyOrderActive, MainActivity.this);
+                refreshResults();
+            }
+        });
 
         //---MRT
         eligeOpcion(listView);
@@ -204,11 +243,6 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (!usuario.equalsIgnoreCase(menuSelected.getVotoUsuario())) {
-                    //System.out.println("---VVVVVVVVVVVVVVVVVVVVVVVV  EVENTO BOTON VOTAR");
-                    //System.out.println("VVVVVVVVVVVVVVVVVVVVVVVV  MenuDia: ID: "+menuSelected.get_id());
-                    //System.out.println("################################  MenuDia: Description: "+menuSelected.getDescription());
-                    //System.out.println("################################  MenuDia: Voto: " + menuSelected.getNro_voto());
-
                     //Contar el voto para el usuario
                     menus.get(index).setNro_voto(menus.get(index).getNro_voto() + 1);
                     menus.get(index).setVotoUsuario(usuario);//registrar usuario votador
@@ -239,11 +273,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void scenarioCerrarPedido() {
+        showLayout(R.id.menu_w_o_poll_closed);
+
+        TextView winnerTxt = (TextView)this.findViewById(R.id.w_o_winner_txt);
+        winnerTxt.setText(weeklyOrderActive.getMenuSelected());
+
         final Button w_o_close_order_button = (Button) findViewById(R.id.w_o_closeOrder_button);
         w_o_close_order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WeeklyOrderLogic.closeOrder(weeklyOrderActive, MainActivity.this);
+                refreshResults();
             }
         });
     }
@@ -272,15 +312,16 @@ public class MainActivity extends ActionBarActivity {
 
     public void startData(int groupId) {
         // Programar w_o de ser necesario
-        WeeklyOrderLogic.scheduleOrders(new Date(), groupId, this);
+        WeeklyOrderLogic.scheduleOrders((weeklyOrderActive==null || weeklyOrderActive.getDate()==null)?  new Date() : weeklyOrderActive.getDate(),
+                groupId, this);
 
         weeklyOrderActive = WeeklyOrderLogic.getActiveWeeklyOrder(groupId, this);
-        System.out.println("start Data >>>>>>>>>>>>>>>>>> " + weeklyOrderActive.toString());
+
     }
 
     //TODO borrar este metodo de trace
     private void showContentsDb() {
-        System.out.println(">>>>>>>>>>>>>>>>>> showContentsDb ");
+
         GroupColumns groupAdapter = new GroupColumns(getBaseContext());
         GroupMemberColumns membersAdapter = new GroupMemberColumns(getBaseContext());
         WeeklyOrderColumns woAdapter = new WeeklyOrderColumns(getBaseContext());
@@ -292,5 +333,31 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
+    }
+
+    public class GroupSelectedListener implements AdapterView.OnItemSelectedListener {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            Log.d("onItemSelected ", "start");
+            GroupColumns groupAdapter = new GroupColumns(getBaseContext());
+            try {
+                groupActive = groupAdapter.getRecord(parent.getItemAtPosition(position).toString());
+                if (groupActive == null) {
+                    Toast.makeText(MainActivity.this, "El grupo seleccionado no tiene información", Toast.LENGTH_SHORT).show();
+                    groupActive = new Group(1, "Mi Grupo de Comilona", "A");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "El grupo seleccionado no tiene información", Toast.LENGTH_SHORT).show();
+                groupActive = new Group(1, "Mi Grupo de Comilona", "A");
+            }
+            Log.d("Fin onItemSelected", groupActive.toString());
+            refreshResults();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
     }
 }

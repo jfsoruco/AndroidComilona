@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
@@ -67,7 +67,7 @@
             android:text="@string/w_o_menu_menus_label"
             style="@style/LargeBlueFont"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -81,7 +81,7 @@
                 android:id="@+id/w_o_menu1"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -95,7 +95,7 @@
                 android:id="@+id/w_o_menu2"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -104,12 +104,12 @@
                 android:text="@string/w_o_menu_menu3_label"
                 style="@style/LargeBlueFont"/>
             <EditText android:text="@string/llenarComida"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/w_o_menu3"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -118,7 +118,7 @@
                 android:text="@string/w_o_menu_menu4_label"
                 style="@style/LargeBlueFont"/>
             <EditText android:text="@string/llenarComida"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/w_o_menu4"/>
         </LinearLayout>

@@ -9,38 +9,37 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" >
-
-                <TextView
-                    android:id="@+id/fullName"
-                    android:layout_width="130dp"
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/primary_text"
-                    android:layout_gravity="center_vertical"/>
-                <TextView
-                    android:id="@+id/nroVotos"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/primary_text"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_margin="10dp" >
 
-                <RadioButton
-                    android:id="@+id/rb_option"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:padding="8dp"
-                    android:clickable="false"
-                    android:focusable="false"/>
+                    <TextView
+                        android:id="@+id/fullName"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textColor="@color/primary_text"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/nroVotos"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textColor="@color/primary_text"
+                        android:layout_gravity="center_vertical"/>
 
-            </TableRow>
+                    <RadioButton
+                        android:id="@+id/rb_option"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="8dp"
+                        android:clickable="false"
+                        android:focusable="false"/>
+
+                </TableRow>
         </TableLayout>
 
     </LinearLayout>

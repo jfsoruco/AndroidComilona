@@ -29,5 +29,7 @@
     <string name="txt_votos">VOTOS</string>
     <string name="txt_opcion">OPCION</string>
     <string name="btn_votar">VOTAR</string>
+    <string name="w_o_winner_lbl">Comida Ganadora!!</string>
+    <string name="w_o_winner_txt">Ganador</string>
 
 </resources>

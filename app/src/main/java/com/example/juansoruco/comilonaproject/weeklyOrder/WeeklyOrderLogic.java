@@ -12,6 +12,9 @@ import com.example.juansoruco.comilonaproject.employee.Employee;
 import com.example.juansoruco.comilonaproject.groupDetails.GroupDetails;
 import com.example.juansoruco.comilonaproject.menu.MenuDia;
 
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,18 +82,25 @@ public class WeeklyOrderLogic {
             datesToCheck.add(cal.getTime());
 
         }
-
+        System.out.println("Dates to check");
+        for (int i = 0; i < datesToCheck.size(); i++) {
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            System.out.println(i + ":" + df.format(datesToCheck.get(i)));
+        }
 
         GroupMemberColumns groupMemberAdapter = new GroupMemberColumns(context);
         ArrayList<GroupDetails> groupResponsibleList = null;
         try {
             groupResponsibleList = groupMemberAdapter.getList(groupId, groupMemberId);
+            System.out.println(">>>>lista de miembros");
+            System.out.println(GroupDetails.listToString(groupResponsibleList));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         Iterator<Date> it = datesToCheck.iterator();
         int i = 0;
+        boolean first = true;
         while (it.hasNext()) {
             Date checkDate = it.next();
             String status;
@@ -99,8 +109,9 @@ public class WeeklyOrderLogic {
                 WeeklyOrder weeklyOrder = dbAdapter.getRecord(groupId, checkDate);
                 System.out.println(">>>>>> validado " + ((weeklyOrder != null) ? weeklyOrder.toString() : null));
                 if (weeklyOrder == null) {
-                    if (i == 0) {
+                    if (first) {
                         status = WeeklyOrderLogic.cActive;
+                        first = false;
                     } else {
                         status = WeeklyOrderLogic.cInitial;
                     }
@@ -108,11 +119,19 @@ public class WeeklyOrderLogic {
                     weeklyOrder = new WeeklyOrder(-1, checkDate, groupResponsible.get_id(),groupResponsible.getGroupFullname(),
                             groupResponsible.getEmployeeFullname(), status);
                     saveOrder(weeklyOrder, context);
+                    if (i >= groupResponsibleList.size()) {
+                        i=0;
+                    }
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            dbAdapter.showContent();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
@@ -219,6 +238,7 @@ public class WeeklyOrderLogic {
         saveOrder(weeklyOrder, context);
 
         WeeklyOrder nextWeeklyOrder = getNextWeeklyOrder(weeklyOrder.get_id(), context);
+        nextWeeklyOrder.setStatus(cActive);
         saveOrder(nextWeeklyOrder, context);
 
     }
@@ -266,9 +286,10 @@ public class WeeklyOrderLogic {
         cal.clear(Calendar.SECOND);
         cal.clear(Calendar.MILLISECOND);
 
-        cal.getFirstDayOfWeek();
-        cal.add(Calendar.DAY_OF_MONTH, 4);
-
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+        System.out.println("$$$$$$$$$ " + cal.getTime());
+        cal.add(Calendar.DAY_OF_MONTH, 5);
+        System.out.println("$$$$$$$$$ " + cal.getTime());
         return cal.getTime();
     }
 

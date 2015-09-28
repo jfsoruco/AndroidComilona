@@ -1,7 +1,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content">
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
@@ -90,6 +90,82 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/menu_w_o_active"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_menus_button"
+                android:text="@string/w_o_menus_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_resignResponsible_button"
+                android:text="@string/w_o_resignResponsible_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_w_o_poll_open"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_completePoll_button"
+                android:text="@string/w_o_completePoll_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_w_o_poll_closed"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/w_o_winner_lbl"
+                android:text="@string/w_o_winner_lbl"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/w_o_winner_txt"
+                android:text="@string/w_o_winner_txt"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/w_o_closeOrder_button"
+                android:text="@string/w_o_closeOrder_button"
+                android:onClick="goToWOMenus"
+                style="@style/CustomButtonStyle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -123,62 +199,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/menu_w_o_active"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/w_o_menus_button"
-                android:text="@string/w_o_menus_button"
-                android:onClick="goToWOMenus"
-                style="@style/CustomButtonStyle"
-                />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/w_o_resignResponsible_button"
-                android:text="@string/w_o_resignResponsible_button"
-                android:onClick="goToWOMenus"
-                style="@style/CustomButtonStyle"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu_w_o_poll_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/w_o_completePoll_button"
-                android:text="@string/w_o_completePoll_button"
-                android:onClick="goToWOMenus"
-                style="@style/CustomButtonStyle"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu_w_o_poll_closed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/w_o_closeOrder_button"
-                android:text="@string/w_o_closeOrder_button"
-                android:onClick="goToWOMenus"
-                style="@style/CustomButtonStyle"
-                />
-        </LinearLayout>
-
         <ListView
             android:id="@+id/employees_list"
             android:layout_width="fill_parent"
@@ -191,7 +211,8 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_gravity="bottom"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:id="@+id/button_vote_layout">
 
             <Button
                 android:id="@+id/btn_votar"

@@ -29,4 +29,4 @@ La implementación de estos tres tipos de usuarios sin embargo, está todavia en
 - [ ] Recepción de pedidos. *[No implementado]*
 - [x] Cerrar la orden semanal/Apertura de la siguiente orden semanal.
 - [ ] Quitar participantes del grupo. *[No implementado]*
-- [x] Integración *[No implementado]*
+- [ ] Integración *[No implementado]*
